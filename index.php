@@ -32,23 +32,48 @@ if (!isset($_SESSION['username'])) {
     </ul>
   </div>
   <br>
+  <div class="container">
+    <div class="container-md col-md-10">
+    <h1>Bienvenido: <?php echo $_SESSION['username'] ?></h1><br>
+
+    </div>
+  </div>
   <div id="content center">
+    <div class="container-md col-md-2">
+
+    </div>
+    <div class="container-md col-md-8">
     <table id="userTable" class="display">
+      <h3><b>Datos de usuario:</b></h3>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Email</th>
+          <th>Nombre</th>
+          <th>Contacto</th>
+          <th>Correo</th>
+          <th>Sesión</th>
           <!-- Add more table header columns as needed -->
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>John Doe</td>
-          <td>john@example.com</td>
-          <!-- Add more table rows as needed -->
-        </tr>
+          <?php 
+          if (isset($_SESSION['datosUsuario'])) {
+            $datosUsuario=$_SESSION['datosUsuario'];
+
+            foreach ($datosUsuario as $campo => $valor) {
+              echo "<tr>";
+              echo "<td>$valor</td>";
+              echo "</tr>";
+            } 
+          } else {
+            echo "<tr><td colspan='4'>Los datos de usuario no estan disponible.</td></tr>";
+          }
+          ?>
       </tbody>
     </table>
+    </div>
+    <div class="container-md col-md-2">
+
+    </div>
   </div>
 
  
@@ -60,7 +85,7 @@ if (!isset($_SESSION['username'])) {
     <!-- Your footer content goes here -->
   </div>
 </footer>
-<script src="public/jquery-3.7.0.min.js"></script>
+<script src="public/DataTables/datatables.min.js"></script>
   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
   
 <script src="public/datatables.min.js"></script>
