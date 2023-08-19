@@ -5,16 +5,16 @@ require_once '../Controller/conexion.php';
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username']; 
 
-    $query = "CALL spDatosUsuario ('$username');";
+    $query = "CALL spDataUsersAll;";
     $consulta = mysqli_query($Conn, $query);
 
     if (!$consulta) {
         echo "Error en la consulta: " . mysqli_error($Conn); 
     } else {
-        $datosUsuario = mysqli_fetch_assoc($consulta);
+        $AllUsers = mysqli_fetch_assoc($consulta);
         
-        if ($datosUsuario) {
-            $_SESSION['datosUsuario'] = $datosUsuario;
+        if ($AllUsers) {
+            $_SESSION['AllUsers'] = $AllUsers;
         } else {
             echo "No se encontraron datos de usuario.";
         }

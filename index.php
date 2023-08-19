@@ -24,7 +24,7 @@ if (!isset($_SESSION['username'])) {
         <a class="nav-link" href="#">Inicio</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Usuarios</a>
+        <a class="nav-link" href="app/Vistas/usuarios.php">Usuarios</a>
       </li>
       <li class="nav-item navbar-right">
         <a class="navbar-brand mr-6 mr-md-10" href="app/Controller/sessionExit.php">Cerrar sesión</a>
