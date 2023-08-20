@@ -1,24 +1,24 @@
 <?php
-session_start(); 
-require_once '../Controller/conexion.php'; 
+session_start();
+require_once '../Controller/conexion.php';
 
 if (isset($_SESSION['username'])) {
-    $username = $_SESSION['username']; 
+    $username = $_SESSION['username'];
 
-    $query = "CALL spDataUsersAll;";
+    $query = "select r_rolId Id, r_rol Rol from db_gu_rol WHERE r_FKEstado=1;";
     $consulta = mysqli_query($Conn, $query);
 
     if (!$consulta) {
         echo "Error en la consulta: " . mysqli_error($Conn);
     } else {
-        $AllUsers = array(); 
+        $roles = array(); 
 
-        while ($fila = mysqli_fetch_assoc($consulta)) {
-            $AllUsers[] = $fila; 
+        while ($row = mysqli_fetch_assoc($consulta)) {
+            $roles[] = $row;
         }
 
-        if (!empty($AllUsers)) {
-            $_SESSION['AllUsers'] = $AllUsers;
+        if (!empty($roles)) {
+            $_SESSION['Rol'] = $roles;
             header('Location: ../Vistas/usuarios.php');
         } else {
             echo "No se encontraron datos de usuario.";
@@ -28,4 +28,3 @@ if (isset($_SESSION['username'])) {
     header('Location: ../../index.php');
 }
 ?>
-

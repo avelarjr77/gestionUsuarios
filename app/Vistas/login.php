@@ -2,10 +2,10 @@
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="public/bootstrap/css/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
-    <center>
     <div class="container center">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
@@ -19,11 +19,10 @@
                         <label for="password">Contraseña:</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    <button type="submit" class="btn btn-primary" styles="">Iniciar Sesión</button>
                 </form>
             </div>
         </div>
     </div>
-    </center>
 </body>
 </html>

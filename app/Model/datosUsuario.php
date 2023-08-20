@@ -15,11 +15,12 @@ if (isset($_SESSION['username'])) {
         
         if ($datosUsuario) {
             $_SESSION['datosUsuario'] = $datosUsuario;
+            header('Location: ../../index.php');
         } else {
             echo "No se encontraron datos de usuario.";
         }
     }
 } else {
-    echo "Usuario no válido"; 
+    header('Location: ../../index.php'); 
 }
 ?>
