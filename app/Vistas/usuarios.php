@@ -20,6 +20,12 @@ if (!isset($_SESSION['Persona'])) {
 }
 
 
+if (!isset($_SESSION['rolUsuario'])) {
+    header('Location: ../Controller/rolUsuario.php');
+    exit();
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,6 +59,7 @@ if (!isset($_SESSION['Persona'])) {
                     <div class="card-body">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <h2 class="sub-header" style="margin: 0;">Usuarios</h2>
+
                             <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-persona">
                                 <i class="fa fa-plus-square-o" aria-hidden="true"></i> Agregar Persona
                             </button>
@@ -66,11 +73,11 @@ if (!isset($_SESSION['Persona'])) {
 
                                 <thead>
                                     <tr>
-                                        <th>Nombres</th>
-                                        <th>Apellidos</th>
+                                        <th colspan="2">Nombres</th>
+                                        <th colspan="2">Apellidos</th>
                                         <th>Usuario</th>
-                                        <th>Rol</th>
-                                        <th>Estado</th>
+                                        <th>Tipo documento</th>
+                                        <th>Documento</th>
                                         <th>Contacto</th>
                                         <th>Correo</th>
                                         <th colspan="2">Opciones</th>
@@ -84,17 +91,19 @@ if (!isset($_SESSION['Persona'])) {
 
                                             foreach ($AllUsers as $usuario) {
                                                 echo "<tr>";
-                                                echo "<td>" . $usuario['Nombres'] . "</td>";
-                                                echo "<td>" . $usuario['Apellidos'] . "</td>";
-                                                echo "<td>" . $usuario['Usuario'] . "</td>";
-                                                echo "<td>" . $usuario['Rol'] . "</td>";
-                                                echo "<td>" . $usuario['Estado'] . "</td>";
-                                                echo "<td>" . $usuario['Contacto'] . "</td>";
-                                                echo "<td>" . $usuario['Correo'] . "</td>";
+                                                echo "<td class=" . $usuario['primerNombre'] . ">" . $usuario['primerNombre'] . "</td>";
+                                                echo "<td class=" . $usuario['segundoNombre'] . ">" . $usuario['segundoNombre'] . "</td>";
+                                                echo "<td class=" . $usuario['primerApellido'] . ">" . $usuario['primerApellido'] . "</td>";
+                                                echo "<td class=" . $usuario['segundoApellido'] . ">" . $usuario['segundoApellido'] . "</td>";
+                                                echo "<td class=" . $usuario['tipoDocumento'] . ">" . $usuario['tipoDocumento'] . "</td>";
+                                                echo "<td class=" . $usuario['documento'] . ">" . $usuario['documento'] . "</td>";
+                                                echo "<td class=" . $usuario['Contacto'] . ">" . $usuario['Contacto'] . "</td>";
+                                                echo "<td class=" . $usuario['Correo'] . ">" . $usuario['Correo'] . "</td>";
+
                                         ?>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <a href="#" class="btn btn-sm btn-warning btn-edit" data-toggle="modal" data-target="#editModal" data-id="<?php echo $usuario['Id']; ?>">
+                                                        <a href="#" class="btn btn-sm btn-warning btn-edit" data-toggle="modal" id="editModal" data-target="#editModal" data-id="<?php echo $usuario['Id']; ?>">
                                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                         </a>
                                                     </div>
@@ -280,83 +289,90 @@ if (!isset($_SESSION['Persona'])) {
     <!-- FINAL DE MODAL -->
 
     <!-- Modal para Editar Usuario -->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editaModalLabel">
-        <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="editaModalLabel">Editar Usuario</h4>
-                </div>
-                <div class="modal-body">
-                    <form role="form">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label class="control-label" for="primerNombre">Primer nombre</label>
-                                    <input type="text" class="form-control primerNombreE" id="primerNombreE" placeholder="Nombre">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="control-label" for="segundoNombre">Segundo nombre</label>
-                                    <input type="text" class="form-control segundoNombreE" id="segundoNombreE" placeholder="Nombre">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label class="control-label" for="primerApellido">Primer apellido</label>
-                                    <input type="text" class="form-control primerApellidoE" id="primerApellidoE" placeholder="Apellido">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="control-label" for="segundoApellido">Segundo apellido</label>
-                                    <input type="text" class="form-control segundoApellidoE" id="segundoApellidoE" placeholder="Apellido">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label class="control-label" for="usuario">Usuario</label>
-                                    <input type="text" class="form-control usuarioE" id="usuarioE" placeholder="Usuario">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="control-label" for="pass">Contraseña</label>
-                                    <input type="password" class="form-control passE" id="passE" placeholder="Contraseña">
+    <form action="../Model/editarPersona.php" method="POST">
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="editaModalLabel">Editar persona</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label" for="primerNombre">Primer nombre</label>
+                                        <input type="text" class="form-control primerNombreE" id="primerNombreE" name="" primerNombreE placeholder="Nombre">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label" for="segundoNombre">Segundo nombre</label>
+                                        <input type="text" class="form-control segundoNombreE" id="segundoNombreE" placeholder="Nombre">
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label class="control-label" for="rol">Rol</label>
-                                        <select class="form-control rolE" id="rolE">
-                                            <option value="admin">Administrador</option>
-                                            <option value="user">Usuario</option>
-                                        </select>
+                                        <label class="control-label" for="primerApellido">Primer apellido</label>
+                                        <input type="text" class="form-control primerApellidoE" id="primerApellidoE" placeholder="Apellido">
                                     </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label" for="segundoApellido">Segundo apellido</label>
+                                        <input type="text" class="form-control segundoApellidoE" id="segundoApellidoE" placeholder="Apellido">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
                                     <div class="col-md-6">
                                         <label class="control-label" for="celular">Celular</label>
                                         <input type="text" class="form-control celularE" id="celularE" placeholder="Celular">
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <label class="control-label" for="correo">Correo</label>
-                                            <input type="email" class="form-control correoE" id="correoE" placeholder="Correo">
-                                        </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label" for="correo">Correo</label>
+                                        <input type="email" class="form-control correoE" id="correoE" placeholder="Correo">
                                     </div>
                                 </div>
+
                             </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="guardarEdicion()">Guardar Cambios</button>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label">Tipo documento</label>
+                                        <select class="form-control tipoDocumento" id="tipoDocumento">
+                                            <option value="">Seleccionar...</option>
+                                            <?php
+
+                                            if (isset($_SESSION['Doc'])) {
+                                                $Doc = $_SESSION['Doc'];
+
+                                                foreach ($Doc as $Documento) { ?>
+                                                    <option value="<?php echo $Documento['Id']; ?>"><?php echo $Documento['Documento']; ?></option>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label" for="doc">Documento</label>
+                                        <input type="text" class="form-control documento" id="documento" required="required" name="documento" placeholder="Correo">
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" id="id" class="id" name="id">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="">Guardar Cambios</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
 
     <!-- Modal para Eliminar Usuario -->
@@ -415,7 +431,7 @@ if (!isset($_SESSION['Persona'])) {
                 url: "../Model/agregarPersona.php",
                 data: datos,
                 success: function(response) {
-                    console.log(response); 
+                    console.log(response);
                     location.reload();
                 },
                 error: function(error) {
@@ -426,6 +442,7 @@ if (!isset($_SESSION['Persona'])) {
 
         document.getElementById("btnAgregar").addEventListener("click", agregarPersona);
     </script>
+
     <script>
         function agregarUsuario() {
             var fkUsuario = document.getElementById("fkUsuario").value;
@@ -445,7 +462,7 @@ if (!isset($_SESSION['Persona'])) {
                 url: "../Model/agregarUsuario.php",
                 data: datos,
                 success: function(response) {
-                    console.log(response); 
+                    console.log(response);
                     location.reload();
                 },
                 error: function(error) {
@@ -462,7 +479,7 @@ if (!isset($_SESSION['Persona'])) {
             var userIdToDelete = null;
 
             $('.btn-danger').click(function() {
-                userIdToDelete = $(this).data('id'); 
+                userIdToDelete = $(this).data('id');
             });
 
             $('#confirmarEliminacion').click(function() {
@@ -488,35 +505,29 @@ if (!isset($_SESSION['Persona'])) {
 
     <script>
         $(document).ready(function() {
-
             $('.btn-edit').on('click', function() {
                 const id = $(this).data('id');
-                const nombres = $(this).closest('tr').find('.nombres').text();
-                const apellidos = $(this).closest('tr').find('.apellidos').text();
-                const usuario = $(this).closest('tr').find('.usuario').text();
-                const rol = $(this).closest('tr').find('.rol').text();
-                const estado = $(this).closest('tr').find('.estado').text();
-                const contacto = $(this).closest('tr').find('.contacto').text();
-                const correo = $(this).closest('tr').find('.correo').text();
+                const primerNombreE = $(this).data('primerNombreE');
+                const segundoNombreE = $(this).data('segundoNombreE');
+                const primerApellidoE = $(this).data('primerApellidoE');
+                const segundoApellidoE = $(this).data('segundoApellidoE');
+                const tipoDocumentoE = $(this).data('tipoDocumentoE');
+                const documentoE = $(this).data('documentoE');
+                const contactoE = $(this).data('contactoE');
+                const correoE = $(this).data('correoE');
 
                 $('#id').val(id);
-                $('#primerNombreE').val(nombres);
-                $('#segundoNombreE').val(segundoNombreE);
-                $('#primerApellidoE').val(primerApellidoE);
-                $('#segundoApellidoE').val(segundoApellidoE);
-                $('#usuarioE').val(usuarioE);
-                $('#passE').val(passE);
-                $('#rolE').val(rolE);
-                $('#celularE').val(celularE);
-                $('#tipoDocumentoE').val(tipoDocumentoE);
-                $('#docE').val(docE);
-                $('#correoE').val(correoE);
+                $('#primerNombre').val(primerNombreE);
+                $('#segundoNombre').val(segundoNombreE);
+                $('#primerApellido').val(primerApellidoE);
+                $('#segundoApellido').val(segundoApellidoE);
+                $('#tipoDocumento').val(tipoDocumento);
+                $('#documento').val(tipoDocumentoE);
+                $('#contacto').val(contactoE);
+                $('#correo').val(correoE);
 
                 $('#editModal').modal('show');
-
-
             });
-
             $('.btn-delete').on('click', function() {
 
                 const id = $(this).data('id');

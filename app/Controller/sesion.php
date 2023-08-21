@@ -10,6 +10,7 @@ require_once 'conexion.php';
 
     if ($array['count']>0) {
         $_SESSION['username']=$username;
+
         header('Location: ../../index.php');
     } else {
         header('Location: ../Vistas/login.php');

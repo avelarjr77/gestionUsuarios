@@ -87,9 +87,6 @@ if (!isset($_SESSION['datosUsuario'])) {
     </div>
   </div>
 
-
-
-
 </body>
 <footer>
   <div id="footer">
