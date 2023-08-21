@@ -92,7 +92,7 @@ CREATE TABLE `db_gu_personas` (
   PRIMARY KEY (`p_personaId`),
   KEY `p_FKTipoDocumento` (`p_FKTipoDocumento`),
   KEY `p_FKEstado` (`p_FKEstado`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +101,7 @@ CREATE TABLE `db_gu_personas` (
 
 LOCK TABLES `db_gu_personas` WRITE;
 /*!40000 ALTER TABLE `db_gu_personas` DISABLE KEYS */;
-INSERT INTO `db_gu_personas` VALUES (1,'Jhon',NULL,'Doe',NULL,1,'00000000-0','jhondoe@gmail.com',NULL,1,'2023-08-19 00:06:19',NULL,NULL,NULL),(2,'Oscar','Jeremías','Avelar','Escobar',2,'234567','avelarjr77@gmail.com','1234567',1,'2023-08-20 16:02:17',NULL,NULL,NULL),(3,'Oscar','Jeremías','Avelar','Avelar',1,'234567','avelarjr7@gmail.com','234567',1,'2023-08-20 16:04:08',NULL,NULL,NULL),(4,'Oscar','Jeremías','Avelar','Avelary',1,'234567','avelarjr77@gmail.com','1234567',1,'2023-08-20 16:49:30',NULL,NULL,NULL);
+INSERT INTO `db_gu_personas` VALUES (6,'Oscar','Jeremías','Avelar','Escobar',1,'12345','oscar@gmail.com','12345',1,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `db_gu_personas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,7 +213,7 @@ CREATE TABLE `db_gu_usuarios` (
 
 LOCK TABLES `db_gu_usuarios` WRITE;
 /*!40000 ALTER TABLE `db_gu_usuarios` DISABLE KEYS */;
-INSERT INTO `db_gu_usuarios` VALUES (1,1,'superadmin','12345',1,1,'2023-08-20 17:05:30'),(2,2,'avelarjr','12345',2,1,NULL),(3,25,'A16001','12345',2,1,NULL),(4,26,'avelarjr','123456789',2,1,NULL),(5,27,'avelarjr','123456789',2,1,NULL),(6,28,'juan123','123456',2,1,NULL),(7,29,'A16001','123456',4,1,NULL),(8,30,'avelarjr','12345',2,1,NULL);
+INSERT INTO `db_gu_usuarios` VALUES (1,6,'superadmin','12345',1,1,'2023-08-20 18:25:40');
 /*!40000 ALTER TABLE `db_gu_usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -226,4 +226,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-20 17:15:48
+-- Dump completed on 2023-08-20 22:11:47
